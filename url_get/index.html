@@ -1,0 +1,19 @@
+<!doctype html>
+<html ng-app="myApp">
+<head>
+	<title>url_get</title>
+	<meta charset="UTF-8">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js">
+	</script>
+	<script type="text/javascript" src="button.js"></script>
+	<link rel="stylesheet" type="text/css" href="bg.css">
+</head>
+<body ng-controller="ctrl">
+	<div id="wrapper">
+	<h1>URL转换器</h1>
+	<input type="text" id="inputbox" ng-model="input"/>
+	<input type="button" id="btn" class="myButton" value="transform" ng-click="trans()"/>
+	<input type="text" id="outputbox" value="{{output}}"/>
+	</div>
+</body>
+</html>
