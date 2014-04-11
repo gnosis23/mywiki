@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>snippet_table</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<p>
+<a href="../index.html">Index</a> &gt; <a href="js.html">Javascript</a>
+</p>
+<h1 id="toc_1">Snippet Table</h1>
+<p>
+假设我们有一个表单，它需要动态的收集数据
+</p>
+
+<p>
+可以把td里面塞入&lt;input&gt;,虽然我觉得非常暴力。
+</p>
+<pre class="brush:html">
+&lt;div class="cart"&gt;
+  &lt;form name="cart" action="../lib/checkout.php" method="post"&gt;
+    &lt;table&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th&gt;美食名称&lt;/th&gt;
+          &lt;th&gt;单价&lt;/th&gt;
+          &lt;th&gt;数量&lt;/th&gt;
+          &lt;th&gt;总价&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+    &lt;input type="submit" value="结帐"/&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+</pre>
+
+<p>
+提交并且累加（不重复）
+</p>
+<ol>
+<li>
+$('input[name="name[]"]') 来选定表单一列
+
+<li>
+&lt;input name="<em>name[]</em>" /&gt; 方便PHP处理
+
+<li>
+jQuery的each中 <em>return false</em> 表示跳出循环
+<pre class="brush:js">
+$(document).ready(function(){
+  // 添加一列
+  $('.items input').click(function(){
+  // 忽略start
+    var price = $(this).siblings('select').val();
+    var itemName = $(this).parent().siblings().html();
+    var count = 1;
+    var total = price * count;
+  // 忽略end 
+
+    if( findItemAndAdd(itemName, price) ){
+      addNewItem(itemName, price, count, total) ;
+    }
+  });
+  
+  // 附送一个按键检验
+  $('table').delegate('input[name="count[]"]','keydown',function(event){
+    var key = event.keyCode;
+      if( key === 46 || key === 8 || (96 &lt;= key &amp;&amp; key &lt;= 105)){}
+      else{
+        if(key &lt; 48 || key &gt; 57){
+          event.preventDefault();
+        }
+      }
+  });
+});
+
+// 新建一行
+// name="name[]" 是为了PHP方便处理
+function addNewItem (itemName, price, count, total) {
+  var $tr = $('&lt;tr/&gt;');
+  $td = $('&lt;td&gt;&lt;input type="text" name="name[]" readonly/&gt;&lt;/td&gt;');
+  $td.children('input').val(itemName);
+  $tr.append($td);
+  $td = $('&lt;td&gt;&lt;input type="text" name="price[]" readonly/&gt;&lt;/td&gt;');
+  $td.children('input').val(price);
+  $tr.append($td);
+  $td = $('&lt;td&gt;&lt;input type="text" name="count[]" /&gt;&lt;/td&gt;');
+  $td.children('input').val(count);
+  $tr.append($td);
+  $td = $('&lt;td&gt;&lt;input type="text" name="total[]" readonly/&gt;&lt;/td&gt;');
+  $td.children('input').val(total);
+  $tr.append($td);
+  $('.cart tbody').append($tr);
+}
+
+// 避免重复检查
+function findItemAndAdd(itemName, price){
+  var ret = true;
+  $('input[name="name[]"]').each(function(index, value){
+    if( $(value).val() === itemName) {
+
+      if ( $('input[name="price[]"]').eq(index).val() === price){
+          ret =  false;
+          var $itemCount = $('input[name="count[]"]').eq(index);
+          var t = $itemCount.val();
+          t = parseInt(t) + 1;
+          $itemCount.val(t);
+          var $itemTotal = $('input[name="total[]"]').eq(index);
+          var x = $itemTotal.val();
+          $itemTotal.val( addFloat(x, price) );
+          // each 内的return false表示break
+          return false;
+      }
+    }
+  });
+  return ret;
+}
+</pre>
+
+</ol>
+
+<p>
+<a href="http://www.wangbaihao.com/project/project1/html">参考</a>
+</p>
+
+</body>
+</html>

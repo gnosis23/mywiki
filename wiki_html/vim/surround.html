@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>surround</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<p>
+<a href="../index.html">主页</a> &gt; <a href="vim.html">vim</a>
+</p>
+<h1 id="toc_1">vim-surround</h1>
+
+<p>
+按流程敲一遍
+</p>
+<h2 id="toc_1.1">NORMAL MODE</h2>
+<pre>
+"Hello world!" 
+</pre>
+<p>
+<strong>cs"'</strong>  ----- change surround " to '
+</p>
+<pre>
+'Hello world!' 
+</pre>
+<p>
+<strong>cs'&lt;q&gt;</strong> to change it to
+</p>
+<pre>
+&lt;q&gt;Hello world!&lt;/q&gt; 
+</pre>
+<p>
+好，现在接着 <strong>cst'</strong>
+</p>
+<pre>
+'Hello world!' 
+</pre>
+<p>
+移除单引号 <strong>ds'</strong> ----- delete surround "
+</p>
+<pre>
+Hello world! 
+</pre>
+<p>
+现在把坐标放在Hello,按 <strong>ysiw]</strong> (*iw*是一个文本对象 )
+</p>
+<pre>
+[Hello] world! 
+</pre>
+<p>
+<strong>cs]{</strong>
+</p>
+<pre>
+{ Hello } world! 
+</pre>
+<p>
+现在把整个一行放入括号, <strong>yssb</strong> or <strong>yss)</strong>
+</p>
+<pre>
+({ Hello } world!) 
+</pre>
+<p>
+<strong>ds{ds)</strong>
+</p>
+<pre>
+  Hello world! 
+</pre>
+<p>
+<strong>ysiw<em></strong>
+</p>
+
+<pre>
+ &lt;em&gt;Hello&lt;/em&gt;  world! 
+</pre>
+
+<p>
+<strong>VS&lt;p class="important"&gt;</strong>
+</p>
+
+<pre>
+ &lt;p class="important"&gt;
+   &lt;em&gt;Hello&lt;/em&gt;  world! 
+ &lt;/p&gt;
+</pre>
+
+</body>
+</html>

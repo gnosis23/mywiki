@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>jquery_plugin</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<p>
+<a href="../index.html">Index</a> &gt; <a href="js.html">Javascript</a>
+</p>
+<h1 id="toc_1">jQuery UI plugin</h1>
+<p>
+需要额外使用jquery ui的css.
+</p>
+
+<p>
+&lt;link rel="stylesheet" 
+href="<a href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/base/jquery-ui.css"">http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/base/jquery-ui.css"</a> /&gt;        
+</p>
+
+<p>
+http可以改成https,防止被墙。（或者直接本地保存好了）
+</p>
+
+<div class="toc">
+<ul>
+<li><a href="#toc_1">jQuery UI plugin</a>
+<ul>
+<li><a href="#toc_1.1">自动补全</a>
+<li><a href="#toc_1.2">日期</a>
+<li><a href="#toc_1.3">滚动条</a>
+<li><a href="#toc_1.4">tabs</a>
+</ul>
+</ul>
+</div>
+
+<h2 id="toc_1.1">自动补全</h2>
+<p>
+.<strong>autocomplete</strong>( json )
+</p>
+
+
+<p>
+例子
+</p>
+<pre class="brush:js">
+var availableTags = [
+    "ActionScript",
+    "AppleScript",
+    "Asp",
+];
+$(function() {
+    $('#tags').autocomplete({source:availableTags});
+});
+</pre>
+
+<h2 id="toc_1.2">日期</h2>
+<p>
+.<strong>datepicker</strong>()
+</p>
+
+<h2 id="toc_1.3">滚动条</h2>
+<p>
+.<strong>slider</strong>()
+</p>
+
+<p>
+获取的值需要通过事件获取，比如stop event中，调用.slider("value")方法
+</p>
+
+<h2 id="toc_1.4">tabs</h2>
+<p>
+.<strong>tabs</strong>()
+</p>
+
+<p>
+需要按照一定的格式进行编辑。参考如下:
+</p>
+<pre class="brush:html">
+    &lt;div id="tabs"&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="#tabs-1"&gt;Nunc tincidunt&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#tabs-2"&gt;Proin dolor&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#tabs-3"&gt;cross fire&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;div id="tabs-1"&gt;
+            &lt;p&gt;Proin elit arcu, rutrum commodo......&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div id="tabs-2"&gt;
+            &lt;p&gt;Morbi tincidunt, dui sit amet facilisis feugiat, odi&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div id="tabs-3"&gt;
+            &lt;p&gt;fire in the hole.抄袭cf&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+</pre>
+<p>
+标签的名字在ul里定义，内容在对应的div#tabs-n中。
+<hr />
+2012年 12月 22日 星期六 14:53:09 CST
+</p>
+
+</body>
+</html>

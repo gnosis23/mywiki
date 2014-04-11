@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>css_positioning</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<p>
+<a href="../index.html">主页</a> &gt; <a href="CSS.html">CSS</a>
+</p>
+<h1 id="toc_1">CSS Positioning</h1>
+
+<div class="toc">
+<ul>
+<li><a href="#toc_1">CSS Positioning</a>
+<ul>
+<li><a href="#toc_1.1">Box model</a>
+<li><a href="#toc_1.2">floating images</a>
+<ul>
+<li><a href="#toc_1.2.1">float</a>
+<li><a href="#toc_1.2.2">clear</a>
+<li><a href="#toc_1.2.3">position</a>
+</ul>
+</ul>
+</ul>
+</div>
+
+<h2 id="toc_1.1">Box model</h2>
+<p>
+我们可以把HTML中的元素 <em>element</em> (&lt;p&gt;, &lt; div&gt;, &lt;h1&gt; ... )当作盒子.
+</p>
+
+<p>
+box可以分成四层，从内到外依次为：
+</p>
+<ul>
+<li>
+content: 实际内容
+
+<li>
+padding: 在content外一层,但还是在element中
+
+<li>
+border:  介于margin与padding
+
+<li>
+margin:  box外面
+
+</ul>
+
+<pre>
+margin可以是 *负数*,
+margin仅仅表示box外边的空间大小。
+正的表示空间变大，负的表示空间缩小。
+</pre>
+<p>
+padding却不可以&lt;0.
+</p>
+
+<hr />
+<h2 id="toc_1.2">floating images</h2>
+<h3 id="toc_1.2.1">float</h3>
+<p>
+x动起来，可以试试 <strong>float:[left|right]</strong>
+</p>
+
+<p>
+float可以让元素移动到左或右，然后让其他元素围绕它，就像报纸一样。
+</p>
+
+<p>
+可以通过div并设置float来移动某些元素，如
+</p>
+<pre class="brush: css">
+div {
+  float: right;
+}
+</pre>
+
+<p>
+如果多个元素使用float怎么办？
+</p>
+
+<p>
+比如两幅图都是float:right,那么第一副图会移到右上角，
+而第二副图移到第一个左边,以此类推，直到空间不够，再在下面一层
+</p>
+
+<ul>
+<li>
+参考练习<a href="http://www.codecademy.com/zh/courses/intro-to-css-positioning/2#!/exercises/2">codecademy</a>
+
+<li>
+w3cschool css float
+
+</ul>
+
+<p>
+我们可以通过设置margin大小来分开两个图
+</p>
+<pre>
+*当然margin可以是负数*
+</pre>
+
+<h3 id="toc_1.2.2">clear</h3>
+<p>
+在float元素后面的元素，会包围在它们左右。如果我们不想这样，
+可以使用clear:[left|right|both]。那么接下来它们会重新换行。
+</p>
+
+<p>
+不会对之后的float元素产生影响
+</p>
+<pre class="brush: css">
+div#nav{
+  clear: left;
+}
+</pre>
+<p>
+参考<a href="http://www.w3schools.com/css/css_float.asp">css_float</a>
+</p>
+
+<h3 id="toc_1.2.3">position</h3>
+<p>
+首先了解下block与inline的区别......
+</p>
+
+<p>
+相对位移是相对的。不像float，其他元素还是认为
+它在原来的位置上，即使它动了。
+</p>
+
+<p>
+要使用，先要
+</p>
+<pre class="brush: css">
+position:relative;
+</pre>
+<p>
+之后设置top,right,bottom,left
+</p>
+
+<hr />
+<p>
+updated at 2012年 12月 12日 星期三 19:24:31 CST
+</p>
+
+</body>
+</html>

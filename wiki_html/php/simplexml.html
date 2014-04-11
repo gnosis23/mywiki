@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>simplexml</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<p>
+<a href="../index.html">主页</a> &gt; <a href="index.html">php</a>
+</p>
+<h1 id="toc_1">simplexml</h1>
+<div class="toc">
+<ul>
+<li><a href="#toc_1">simplexml</a>
+<ul>
+<li><a href="#toc_1.1">用simplexml查看rss</a>
+</ul>
+</ul>
+</div>
+
+<p>
+例子参考<a href="http://cn2.php.net/manual/zh/simplexml.examples.php">http://cn2.php.net/manual/zh/simplexml.examples.php</a> 
+</p>
+
+<h2 id="toc_1.1">用simplexml查看rss</h2>
+<p>
+simplexml可以获取网络上的rss！ <strong>rss就是xml.</strong>
+</p>
+<pre class="brush:php">
+$blog = simplexml_load_file("http://www.wangbaihao.com/feed");
+
+$post = $blog-&gt;channel-&gt;item[0];
+
+//$post-&gt;title;
+//$post-&gt;description
+//...
+</pre>
+<p>
+如此以来便可以获取到文章的内容，时间。。。
+</p>
+
+<p>
+同样可以获取博客的评论。
+</p>
+
+<hr />
+<p>
+2013年 01月 01日 星期二 21:42:04 
+</p>
+
+<p>
+只知道用print打印，看上去很乱
+</p>
+
+</body>
+</html>

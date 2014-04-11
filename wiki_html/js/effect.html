@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>effect</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<p>
+<a href="../index.html">Index</a> &gt; <a href="js.html">Javascript</a>
+</p>
+<h1 id="toc_1">effect</h1>
+
+<div class="toc">
+<ul>
+<li><a href="#toc_1">effect</a>
+<ul>
+<li><a href="#toc_1.1">特效</a>
+<li><a href="#toc_1.2">动画</a>
+<li><a href="#toc_1.3">延迟</a>
+<li><a href="#toc_1.4">淡入淡出</a>
+<li><a href="#toc_1.5">show hide</a>
+<ul>
+<li><a href="#toc_1.5.1">animate, fade and  hide 区别</a>
+</ul>
+<li><a href="#toc_1.6">slide</a>
+<li><a href="#toc_1.7">stop</a>
+</ul>
+</ul>
+</div>
+<hr />
+<h2 id="toc_1.1">特效</h2>
+<p>
+.<strong>effect</strong>(effect,[option],[speed],[callback])
+</p>
+
+<p>
+参考<a href="http://www.cnblogs.com/dail/archive/2011/01/14/1935795.html">jQueryui effects</a>
+</p>
+<pre class="brush:js">
+    $('div.bounce').click(function(){
+        $(this).effect("bounce",{time:3},300);
+    });
+</pre>
+<hr />
+<h2 id="toc_1.2">动画</h2>
+<p>
+.<strong>animate</strong>( properties, [duration], [erasing], [complete])
+</p>
+
+<p>
+<em>properties</em>: a map of CSS properties that the animate will move towards
+</p>
+
+
+<pre class="brush:js">
+  width = $('#block').width();
+  height = $('#block').height();
+  //jib
+  size = parseInt($('#block').css('font-size'), 10);
+  //your code here
+  $('#block').click(function(){
+      width += 50;
+      height += 50;
+      size += 2;
+
+      $(this).animate({
+        "height": width+"px", "width":width+"px",
+        "font":size+"px"}, 1500);
+  });
+</pre>
+<hr />
+<h2 id="toc_1.3">延迟</h2>
+<p>
+.<strong>delay</strong>( duration, [,queueName] )
+</p>
+
+<pre class="brush:js">
+$('#foo').slideUp(300).delay(800).fadeIn(400);
+</pre>
+<hr />
+<h2 id="toc_1.4">淡入淡出</h2>
+<p>
+.<strong>fadeIn</strong>(duration,[,callback])
+</p>
+
+<p>
+.<strong>fadeOut</strong>(duration,[,callback])
+</p>
+
+<hr />
+<h2 id="toc_1.5">show hide</h2>
+<p>
+.<strong>show/hide</strong>(duration, [,complete])
+</p>
+
+<h3 id="toc_1.5.1">animate, fade and  hide 区别</h3>
+
+
+
+<pre class="brush:js">
+$(document).ready(function(){
+//your code here
+	$(".items").mouseover(function() {
+    	$("a", this).show( , function(){ $(this).animate({width:100}});    
+	});
+	$(".items").mouseout(function() {
+    	$("a", this).animate({width:0}, function(){ $(this).hide();});
+	});
+});
+</pre>
+<p>
+selector  可以加第二个参数，作为上下文
+</p>
+
+<p>
+$(this).find('a')
+<hr />
+</p>
+<h2 id="toc_1.6">slide</h2>
+<p>
+.<strong>slideUp</strong>(duration, [callback])
+</p>
+
+<p>
+.<strong>slideToggle</strong>()
+<hr />
+</p>
+<h2 id="toc_1.7">stop</h2>
+<p>
+.<strong>stop</strong>( )
+</p>
+
+<hr />
+<p>
+2012年 12月 20日 星期四 20:05:59 CST
+</p>
+
+</body>
+</html>

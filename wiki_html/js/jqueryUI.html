@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>jqueryUI</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<p>
+<a href="../index.html">Index</a> &gt; <a href="js.html">Javascript</a>
+</p>
+<h1 id="toc_1">jQueryUI</h1>
+
+<div class="toc">
+<ul>
+<li><a href="#toc_1">jQueryUI</a>
+<ul>
+<li><a href="#toc_1.1">引用库</a>
+<li><a href="#toc_1.2">draggable</a>
+<ul>
+<li><a href="#toc_1.2.1">option</a>
+</ul>
+<li><a href="#toc_1.3">droppable</a>
+<ul>
+<li><a href="#toc_1.3.1">option</a>
+<li><a href="#toc_1.3.2">example</a>
+</ul>
+<li><a href="#toc_1.4">sortable</a>
+<ul>
+<li><a href="#toc_1.4.1">option</a>
+</ul>
+<li><a href="#toc_1.5">resize</a>
+<li><a href="#toc_1.6">addClass变形</a>
+<li><a href="#toc_1.7">color animation</a>
+</ul>
+</ul>
+</div>
+
+<p>
+应该仔细看看jQuery UI示例部分，至少要看看interaction.
+</p>
+
+<p>
+以draggable函数为例，参数如下
+<table>
+<tr>
+<td>
+参数分类
+</td>
+<td>
+语法
+</td>
+</tr>
+<tr>
+<td rowspan="4">
+option
+</td>
+<td>
+//getter
+</td>
+</tr>
+<tr>
+<td>
+$('.selector').draggable("option", "addClasses")
+</td>
+</tr>
+<tr>
+<td>
+//setter
+</td>
+</tr>
+<tr>
+<td>
+$('.selector').draggable("option", "cancel", ".cancel")
+</td>
+</tr>
+<tr>
+<td>
+methods
+</td>
+<td>
+$('.selector').draggable('methodsName')
+</td>
+</tr>
+<tr>
+<td>
+events
+</td>
+<td>
+$('.selector').draggable({create: function(event, ui){}})
+</td>
+</tr>
+</table>
+上面的events一般都放在初始化时候，如果option，methods也要放在初始化的话，
+只要放在一个JSON对象里就行了.
+</p>
+
+<h2 id="toc_1.1">引用库</h2>
+<pre class="brush:js">
+&lt;script
+src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"&gt;
+&lt;/script&gt;
+</pre>
+
+<h2 id="toc_1.2">draggable</h2>
+<p>
+.<strong>draggable</strong>()
+</p>
+
+<p>
+可以任意拖拽，相应地还有droppable函数，可以添加落下相应动作。
+</p>
+<h3 id="toc_1.2.1">option</h3>
+<ul>
+<li>
+containment: 可以指定selector, element, or "parent"等来进行移动区域限制。
+
+<li>
+cursor: 指定cursor样式以及方位等: "crosshair"...
+
+<li>
+helper: "clone",拖拽时clone自己
+
+<li>
+revert: 复位, 值为true那么一定复位，"invalid"则在只有droppable才不复位
+
+<li>
+connectToSortable: 与sortable对象链接，可以转换位子，配合helper："clone"使用，因为可能它的位子会被挤走。。。。。。
+
+</ul>
+<h2 id="toc_1.3">droppable</h2>
+<p>
+用于防置拖拽对象
+</p>
+<h3 id="toc_1.3.1">option</h3>
+<ul>
+<li>
+accept: selector|function, 表示可以防止的对象
+
+<li>
+activeClass: 当可放置的对象被拖拽时，把这个类添加到对象
+
+<li>
+hoverClass: 当可放置的对象被拖到对象上面时候，添加这个类
+
+</ul>
+<h3 id="toc_1.3.2">example</h3>
+<pre class="brush:js">
+  $( "#cart ol" ).droppable({
+    activeClass: "ui-state-default",
+    hoverClass: "ui-state-hover",
+    accept: ":not(.ui-sortable-helper)",
+    drop: function( event, ui ) {
+      $( this ).find( ".placeholder" ).remove();
+      $( "&lt;li&gt;&lt;/li&gt;" ).text( ui.draggable.text() ).appendTo( this );
+    }
+  })
+</pre>
+
+<h2 id="toc_1.4">sortable</h2>
+<p>
+jQuery UI可以干很多很牛的事情，比如sortable()函数。
+</p>
+
+<p>
+它可以自动让 <em>list</em> 里面的元素可以被拖动，而且可以重新安排
+顺序。
+</p>
+<h3 id="toc_1.4.1">option</h3>
+<ul>
+<li>
+placeholder: 类名，用以代替移动时原来位置的空白。
+
+</ul>
+
+<h2 id="toc_1.5">resize</h2>
+<p>
+.<strong>resizable</strong>()
+</p>
+
+<p>
+在元素角上添加一个标记，然后改变大小。
+</p>
+
+<h2 id="toc_1.6">addClass变形</h2>
+<p>
+.<strong>addClass</strong>(className, duration, callback)
+</p>
+
+<p>
+jQuery UI改造了addClass，使得addClass有一个动画效果。
+</p>
+
+<p>
+例子参考jquery UI
+</p>
+
+<h2 id="toc_1.7">color animation</h2>
+<p>
+.<strong>animate</strong>( object , duration)
+</p>
+
+<p>
+object : 可以backgroundColor, borderBottomColor, 
+borderLeftColor, borderRightColor, borderTopColor, 
+color, columnRuleColor, outlineColor, textDecorationColor,
+textEmphasisColor
+比如 {backgroundColor: "#d4ecf8"}
+<hr />
+2012年 12月 21日 星期五 16:21:30 CST
+</p>
+
+</body>
+</html>

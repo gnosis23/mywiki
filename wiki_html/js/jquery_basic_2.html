@@ -1,0 +1,227 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>jquery_basic_2</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<p>
+<a href="../index.html">主页</a> &gt; <a href="js.html">Javascript</a>
+</p>
+<h1 id="toc_1">jQuery Basic 2</h1>
+
+<div class="toc">
+<ul>
+<li><a href="#toc_1">jQuery Basic 2</a>
+<ul>
+<li><a href="#toc_1.1">\and vs \and()</a>
+<ul>
+<li><a href="#toc_1.1.1">数组检测</a>
+<li><a href="#toc_1.1.2">each , map</a>
+<li><a href="#toc_1.1.3">data</a>
+<li><a href="#toc_1.1.4">attr</a>
+</ul>
+<li><a href="#toc_1.2">创建元素</a>
+<li><a href="#toc_1.3">插入元素</a>
+<li><a href="#toc_1.4">移动元素</a>
+<ul>
+<li><a href="#toc_1.4.1">移动</a>
+<li><a href="#toc_1.4.2">clone</a>
+<li><a href="#toc_1.4.3">清除</a>
+</ul>
+</ul>
+</ul>
+</div>
+
+<h2 id="toc_1.1">\and vs \and()</h2>
+<p>
+$是 <strong>jQuery</strong> 的缩写，
+$()是最简单的jQuery对象，它们的属性和方法不一样。
+</p>
+<pre class="brush:js">
+for(var a in $){
+  console.log(a);
+}
+
+for(var b in $()){
+  console.log(b);
+}
+</pre>
+
+<h3 id="toc_1.1.1">数组检测</h3>
+<p>
+<strong>.isArray</strong>(object) // 如果obj是数组的话返回true
+</p>
+
+<p>
+因为JS的typeof无法分辨array和object。
+<hr />
+</p>
+
+<h3 id="toc_1.1.2">each , map</h3>
+<p>
+有两个each函数
+</p>
+
+<p>
+$.<strong>each</strong>( <em>object</em>, <em>function</em>(index, value) ) //对obj中每对值调用 
+</p>
+<pre class="brush:js">
+$.each([1,2,3,4], function(index, value){
+  alert(value);
+});
+</pre>
+<p>
+如果你对jQuery object调用each函数，那么仅有 <em>function</em> 参数:)
+</p>
+
+<p>
+<em>each中的return true/false表示跳出each或者继续～～～</em>
+</p>
+
+<p>
+map和each很相似，不过map返回一个全新的对象
+</p>
+
+<p>
+$.<strong>map</strong>( <em>object</em>, <em>function</em>(value, index) ) //对obj中调用并返回新obj
+</p>
+<pre class="brush:js">
+xarray = $.map($jqueryObject, function(value, index){
+  return value.html() ;
+});
+</pre>
+<p>
+<em>index和value的位置是反的</em>
+</p>
+
+<h3 id="toc_1.1.3">data</h3>
+<p>
+.<strong>data</strong>() // 将DOM元素或jQuery selection与数据关联
+</p>
+
+<p>
+单个参数getter，两个参数setter
+</p>
+<pre class="brush:js">
+$element.data('key');
+$element.data('key', value);
+</pre>
+
+<h3 id="toc_1.1.4">attr</h3>
+<p>
+html标签有很多属性,比如img的src，a的href.....
+</p>
+
+<p>
+attr可以访问并修改某个属性
+</p>
+
+<p>
+.<strong>attr</strong>( ) // 与data用法类似
+</p>
+<pre class="brush:js">
+var $allTheLinks = $('a');
+
+//iterate over each one, using attr()
+//to alter the 'href' attribute as described
+$allTheLinks.each( function(index, value){
+    var h = $(value).attr('href');
+    $(value).attr('href', "/life" + h);
+});
+</pre>
+<p>
+$()这里不能忘
+</p>
+
+<h2 id="toc_1.2">创建元素</h2>
+<p>
+1 最简单的方法：给$()传递一个字符html字符串
+</p>
+<pre>
+var $myNewHeading = $('&lt;h1&gt;This is a heading&lt;/h1&gt;');
+</pre>
+<p>
+2 自闭标签
+</p>
+<pre>
+$newDiv = $('&lt;div /&gt;');
+// $('&lt;a&gt;&lt;/a&gt;') 也行
+</pre>
+<p>
+创建好的元素返回一个jQuery对象，所以我们可以使用所有的jQuery方法!
+</p>
+
+<p>
+3 直接或间接指定属性
+</p>
+<pre class="brush:js">
+$newDiv = $('&lt;div /&gt;');
+$newDiv.attr('id','myId');
+$newDiv.addClass('myClass');
+
+// 相当于
+$newDiv = $('&lt;div /&gt;', {
+  id : 'myId',
+  class: 'myClass'
+});
+</pre>
+
+<p>
+4 在html()函数中指定元素
+</p>
+<pre>
+$myDiv.html('&lt;h1&gt;Hello!&lt;/h1&gt;');
+</pre>
+
+<h2 id="toc_1.3">插入元素</h2>
+<pre class="brush:js">
+// 在e最后插入
+$e.append($x);
+$x.appendTo($e);
+
+// 在e最前插入
+$e.prepend($x);
+$x.prependTo($e);
+
+// 在e前/后插入x
+$x.insertBefore($e);
+$x.insertAfter($e);
+
+$e.before($x);
+$e.after($x);
+</pre>
+
+<p>
+.<strong>wrap</strong>( ) //在外层包裹
+</p>
+
+<h2 id="toc_1.4">移动元素</h2>
+<h3 id="toc_1.4.1">移动</h3>
+<p>
+实际上就是把已有对象放到 <strong>上面</strong> 的函数中
+</p>
+
+<h3 id="toc_1.4.2">clone</h3>
+<p>
+.<strong>clone</strong>( true? ) 
+深克隆，参数true表示克隆属性
+</p>
+
+<h3 id="toc_1.4.3">清除</h3>
+<p>
+.<strong>empty</strong>()
+在清除前会清空子结点，移除事件和数据的内存，防止内存泄漏。
+</p>
+
+<p>
+.<strong>remove</strong>()
+移除单个|种元素
+<hr />
+2012年 12月 17日 星期一 09:38:58 CST
+</p>
+
+</body>
+</html>

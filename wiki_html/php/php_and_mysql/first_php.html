@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../../style.css">
+<title>first_php</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<p>
+<a href="../index.html">主页</a> &gt; <a href="../index.html">php</a>
+</p>
+<h1 id="toc_1">first php</h1>
+<p>
+循环数组
+</p>
+<pre class="brush:php">
+&lt;?php
+// range
+$numbers = range(1, 10, 3);
+print_r($numbers); //1, 4, 7 , 10 
+echo "&lt;br/&gt;";
+
+$prices = array('Tires' =&gt; 100, 'Oil'=&gt;10, 'Spark'=&gt;4);
+
+// 循环
+foreach ($prices as $key =&gt; $value) {
+  echo $key." - ".$value."&lt;br/&gt;";
+}
+
+// each会记录数组当前位置，多次使用要reset
+reset($prices);
+while($element = each($prices)){
+  echo $element['key'];
+  echo " -- ";
+  echo $element['value'];
+  echo "&lt;br /&gt;";
+}
+
+// list
+reset($prices);
+while( list($product, $price) = each($prices)){
+  echo "$product --- $prices&lt;br /&gt;";
+}
+?&gt;
+</pre>
+<hr />
+<p>
+2013年 01月 08日 星期二 23:07:25 CST
+</p>
+
+</body>
+</html>

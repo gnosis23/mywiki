@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>proxy</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<p>
+<a href="../index.html">Index</a> &gt; <a href="js.html">Javascript</a>
+</p>
+<h1 id="toc_1">Proxy</h1>
+<p>
+<strong>jQuery.proxy</strong>(function, context)
+<hr />
+function: 被改变上下文的函数
+</p>
+
+<p>
+context: 函数的this指代的对象
+<hr />
+<strong>jQuery.proxy</strong>(context, name)
+<hr />
+context: 函数所在的对象
+</p>
+
+<p>
+name: 对象中的函数名
+</p>
+
+<p>
+这个方法主要用于给事件处理函数一个指向不同对象的函数
+</p>
+
+<p>
+--&gt;<em>event函数一般不能指定参数，所以得借助proxy提供它一个变量</em> 
+</p>
+
+<h2 id="toc_1.1">example1</h2>
+<pre class="brush:js">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;script src="http://code.jquery.com/jquery-latest.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  
+&lt;p&gt;&lt;button type="button" id="test"&gt;Test&lt;/button&gt;&lt;/p&gt;
+&lt;div id="log"&gt;&lt;/div&gt;
+
+&lt;script&gt;
+var me = {
+  type: "zombie",
+  test: function(event) {
+    // Without proxy, `this` would refer to the event target
+    // use event.target to reference that element.
+    var element = event.target;
+    $(element).css("background-color", "red");
+
+    // With proxy, `this` refers to the me object encapsulating
+    // this function.
+    $("#log").append( "Hello " + this.type + "&lt;br&gt;" );
+    $("#test").unbind("click", this.test);
+  }
+};
+
+var you = {
+  type: "person",
+  test: function(event) {
+    $("#log").append( this.type + " " );
+  }
+};
+
+// execute you.test() in the context of the `you` object
+// no matter where it is called
+// i.e. the `this` keyword will refer to `you`
+var youClick = $.proxy( you.test, you );
+
+
+// attach click handlers to #test
+$("#test")
+  // this === "zombie"; handler unbound after first click
+  .click( $.proxy( me.test, me ) )
+  // this === "person"
+  .click( youClick )
+  // this === "zombie"
+  .click( $.proxy( you.test, me ) )
+  // this === "&lt;button&gt; element"
+  .click( you.test );
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>
+从上面看出，使用代理可以给事件函数添加携带可变数据的能力。
+类？
+</p>
+
+<h2 id="toc_1.2">Example2</h2>
+<pre class="brush:js">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;script src="http://code.jquery.com/jquery-latest.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  
+  &lt;p&gt;&lt;button id="test"&gt;Test&lt;/button&gt;&lt;/p&gt;
+  &lt;p id="log"&gt;&lt;/p&gt;
+
+&lt;script&gt;
+  var obj = {
+    name: "John",
+    test: function() {
+      $("#log").append( this.name );
+      $("#test").unbind("click", obj.test);
+    }
+  };
+
+  $("#test").click( jQuery.proxy( obj, "test" ) );
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+
+
+<h1 id="toc_2">参考</h1>
+<p>
+<a href="http://api.jquery.com/jQuery.proxy/">api.jquery.com</a>
+</p>
+
+</body>
+</html>

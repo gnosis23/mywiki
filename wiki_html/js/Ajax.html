@@ -1,0 +1,308 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>Ajax</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<p>
+<a href="../index.html">Index</a> &gt; <a href="js.html">Javascript</a>
+<div class="toc">
+<ul>
+<li><a href="#toc_1">Ajax</a>
+<li><a href="#toc_2">XMLHttpRequest</a>
+<li><a href="#toc_3">例子</a>
+<ul>
+<li><a href="#toc_3.1">最简单</a>
+<li><a href="#toc_3.2">XML</a>
+<li><a href="#toc_3.3">JSON</a>
+</ul>
+<li><a href="#toc_4">参考</a>
+</ul>
+</div>
+</p>
+<h1 id="toc_1">Ajax</h1>
+<p>
+Ajax - "Asynchronous Javascript and
+XML",一套综合了多项技术的浏览器端网页开发技术。
+</p>
+
+<p>
+详细介绍参考<a href="http://zh.wikipedia.org/zh-cn/AJAX">http://zh.wikipedia.org/zh-cn/AJAX</a>
+</p>
+
+<h1 id="toc_2">XMLHttpRequest</h1>
+<p>
+XMLHttpRequest是Javascript特有的对象，它是客户端请求和服务器响应的通道。
+</p>
+
+<p>
+使用XMLHttpRequest前必须实例化对象。
+</p>
+
+<p>
+为了确保兼容性，需要一定trick。
+</p>
+<pre class="brush:js">
+function getXMLHTTPRequest(){
+  var req = false;
+  try{
+    req = new XMLHttpRequest();
+  }
+  catch(err){
+    try{
+      /* for some versions of IE */
+      req = new ActiveXObject("Msxml2.XMLHTTP"); 
+    }
+    catch(err){
+      try{
+        /* for some other versions of IE */
+        req = new ActiveXObject("Microsoft.XMLHTTP");
+      }
+      catch(err){
+        req = false;
+      }
+    }
+  }
+  return req;
+}
+</pre>
+
+<h1 id="toc_3">例子</h1>
+<h2 id="toc_3.1">最简单</h2>
+<p>
+客户端
+</p>
+<pre class="brush:html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;haha&lt;/title&gt;
+  &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"&gt;	
+  &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+   &lt;form action="quote.php" method="get" onsubmit="doSomething() ; return false;"&gt; 
+     &lt;input type="text" name="price" value=""&gt;
+     &lt;input type="submit" value="Continue &amp;rarr;"&gt;
+   &lt;/form&gt;
+   &lt;script type="text/javascript" charset="utf-8"&gt;
+     function getXMLHTTPRequest(){
+       var req = false;
+       try{
+         req = new XMLHttpRequest();
+       }
+       catch(err){
+         try{
+           req = new ActiveXObject("Microsoft.XMLHTTP");
+         }
+         catch(err){
+           try{
+             req = new ActiveXObject("Msxml2.XMLHTTP");
+           }
+           catch(err){
+             req = false;
+           }
+         }
+       }
+       return req;
+     }
+  
+    function doSomething(){
+      var xhr = getXMLHTTPRequest();
+      xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 &amp;&amp; xhr.status == 200){
+          $('input[name="price"]').val( xhr.responseText );
+        }
+      };
+
+      xhr.open("GET", "hehe.php", true);
+      xhr.send(null);
+    }
+   &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<p>
+hehe.php
+</p>
+<pre class="brush:php">
+&lt;?php
+  print( date('Y/mm/d') );
+?&gt;
+</pre>
+
+<h2 id="toc_3.2">XML</h2>
+<p>
+客户端使用 <strong>responseXML</strong> 属性获得xml
+</p>
+<pre class="brush:html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;haha&lt;/title&gt;
+  &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"&gt;	
+  &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+   &lt;form action="quote.php" method="get" onsubmit="doSomething() ; return false;"&gt; 
+     &lt;input type="text" name="year" value=""&gt;&lt;br /&gt;
+     &lt;input type="text" name="month" value=""&gt;&lt;br /&gt;
+     &lt;input type="text" name="day" value=""&gt;&lt;br /&gt;
+     &lt;input type="submit" value="Continue &amp;rarr;"&gt;
+   &lt;/form&gt;
+   &lt;script type="text/javascript" charset="utf-8"&gt;
+     function getXMLHTTPRequest(){
+       var req = false;
+       try{
+         req = new XMLHttpRequest();
+       }
+       catch(err){
+         try{
+           req = new ActiveXObject("Microsoft.XMLHTTP");
+         }
+         catch(err){
+           try{
+             req = new ActiveXObject("Msxml2.XMLHTTP");
+           }
+           catch(err){
+             req = false;
+           }
+         }
+       }
+       return req;
+     }
+  
+    function doSomething(){
+      var xhr = getXMLHTTPRequest();
+      xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 &amp;&amp; xhr.status == 200){
+          // 获取xml 
+          var xml = xhr.responseXML;
+
+          $('input[name="year"]').val( 
+              xml.getElementsByTagName('year')[0].firstChild.nodeValue );
+          $('input[name="month"]').val( 
+              xml.getElementsByTagName('month')[0].firstChild.nodeValue);
+          $('input[name="day"]').val( 
+              xml.getElementsByTagName('day')[0].firstChild.nodeValue);
+        }
+      };
+
+      xhr.open("GET", "hehe.php", true);
+      xhr.send(null);
+    }
+   &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+</pre>
+<p>
+php需要设置好 <strong>http header</strong>
+</p>
+<pre class="brush:php">
+&lt;?php
+  header("Content-type: text/xml");
+
+  print("&lt;time&gt;");
+
+  print("&lt;year&gt;". date('Y')."&lt;/year&gt;");
+  print("&lt;month&gt;". date('m')."&lt;/month&gt;");
+  print("&lt;day&gt;". date('d')."&lt;/day&gt;");
+
+  print("&lt;/time&gt;");
+?&gt;
+</pre>
+
+<h2 id="toc_3.3">JSON</h2>
+<p>
+客户端 <strong>eval</strong> 函数
+</p>
+<pre class="brush:html">
+&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;haha&lt;/title&gt;
+  &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"&gt;	
+  &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+   &lt;form action="quote.php" method="get" onsubmit="doSomething() ; return false;"&gt; 
+     &lt;input type="text" name="year" value=""&gt;&lt;br /&gt;
+     &lt;input type="text" name="month" value=""&gt;&lt;br /&gt;
+     &lt;input type="text" name="day" value=""&gt;&lt;br /&gt;
+     &lt;input type="submit" value="Continue &amp;rarr;"&gt;
+   &lt;/form&gt;
+   &lt;script type="text/javascript" charset="utf-8"&gt;
+     function getXMLHTTPRequest(){
+       var req = false;
+       try{
+         req = new XMLHttpRequest();
+       }
+       catch(err){
+         try{
+           req = new ActiveXObject("Microsoft.XMLHTTP");
+         }
+         catch(err){
+           try{
+             req = new ActiveXObject("Msxml2.XMLHTTP");
+           }
+           catch(err){
+             req = false;
+           }
+         }
+       }
+       return req;
+     }
+  
+    function doSomething(){
+      var xhr = getXMLHTTPRequest();
+      xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 &amp;&amp; xhr.status == 200){
+          var json = eval("(" + xhr.responseText + ")");
+
+          $('input[name="year"]').val( json.year );
+          $('input[name="month"]').val( json.month );
+        }
+      };
+
+      xhr.open("GET", "hehe.php", true);
+      xhr.send(null);
+    }
+   &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>
+php设置好 <strong>header</strong>
+</p>
+<pre class="brush:php">
+&lt;?php
+  header("Content-type: application/json");
+  $year = date('Y');
+  $month = date('m');
+  print("{ year: $year, month: $month}");
+?&gt;
+</pre>
+<hr />
+<h1 id="toc_4">参考</h1>
+<ol>
+<li>
+<a href="https://developer.mozilla.org/zh-CN/docs/DOM/XMLHttpRequest">https://developer.mozilla.org/zh-CN/docs/DOM/XMLHttpRequest</a> 
+
+<li>
+<a href="http://zh.wikipedia.org/zh-cn/AJAX">http://zh.wikipedia.org/zh-cn/AJAX</a> 
+
+<li>
+PHP and MySQL Web Development Fourth Edition
+
+</ol>
+
+</body>
+</html>

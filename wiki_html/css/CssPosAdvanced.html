@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>CssPosAdvanced</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<p>
+<a href="../index.html">主页</a> &gt; <a href="CSS.html">CSS</a>
+</p>
+<h1 id="toc_1">Css Positioning Advanced</h1>
+
+<h1>目录</h1>
+<div class="toc">
+<ul>
+<li><a href="#toc_1">Css Positioning Advanced</a>
+<ul>
+<li><a href="#toc_1.1">定位</a>
+<ul>
+<li><a href="#toc_1.1.1">fixed</a>
+</ul>
+<li><a href="#toc_1.2">参考</a>
+</ul>
+</ul>
+</div>
+
+<h2 id="toc_1.1">定位</h2>
+<pre>
+position: relative; 
+</pre>
+<p>
+  以元素正常位置为参照物进行定位。常用做容器。
+</p>
+<pre>
+position: absolute; 
+</pre>
+<p>
+  绝对定位的元素，以最近一个的 <em>非静态定位(static)</em> 的上层元素为参照进
+  行定位。如不存在这样的元素，就以&lt;html&gt;元素为参照进行定位.
+</p>
+<pre>
+position: static; 
+</pre>
+<p>
+  HTML元素默认都是static的。静态的元素不受top,bottom,left,right影响. 
+</p>
+  
+<p>
+只考虑relative和absolute就是了!!
+</p>
+
+<p>
+设置定位时需要考虑到：
+</p>
+<ol>
+<li>
+absolute后面的元素不会考虑你的位置，可能会重叠
+
+<li>
+absolute有种特性，设定top,bottom,left,right就能自动根据非static父亲
+  的大小而适应。而relative则不行，相反方向会冲突.
+
+<li>
+static对象的孩子如果设置百分比大小的话，可能会出错
+
+</ol>
+
+<p>
+relative与absolute的一个区别是：absolute不会考虑现在的位置，它参考父结点.
+</p>
+<h3 id="toc_1.1.1">fixed</h3>
+<p>
+fixed position 和absolute很像，唯一不同就是fixed相对与浏览器窗口。
+</p>
+
+<p>
+当你滚动时，它们会不动。所以fixed定位常用于网站的顶部菜单.
+</p>
+
+<h2 id="toc_1.2">参考</h2>
+<p>
+<a href="http://www.alistapart.com/articles/css-positioning-101/">CSS Positioning 101</a>
+</p>
+<ul>
+<li>
+static 元素像积木一样一个堆一个
+
+<li>
+relative 元素使得它们具有偏移和建立子坐标的能力。
+
+<li>
+absolute 元素可以建立子坐标，同时它能根据top,left,right,bottom来自动设置大小
+
+</ul>
+
+
+
+<hr />
+<p>
+2012年 12月 13日 星期四 14:05:30 CST
+</p>
+
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>jQuery1</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<p>
+<a href="../index.html">主页</a> &gt; <a href="js.html">Javascript</a>
+</p>
+
+<div class="toc">
+<ul>
+<li><a href="#toc_1">jQuery 1</a>
+<ul>
+<li><a href="#toc_1.1">make things easier</a>
+<li><a href="#toc_1.2">functions</a>
+<li><a href="#toc_1.3">objects</a>
+<li><a href="#toc_1.4">this</a>
+</ul>
+<li><a href="#toc_2">参考</a>
+</ul>
+</div>
+
+<h1 id="toc_1">jQuery 1</h1>
+<p>
+使用jQuery首先要获取库，一种简单的方式
+</p>
+<pre class="brush: html">
+&lt;script 
+  src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"&gt;	
+&lt;/script&gt;
+</pre>
+
+<h2 id="toc_1.1">make things easier</h2>
+<pre class="brush: js">
+//无视这句话
+$('document').ready(function(){
+
+/*
+ * 隐藏一元素
+ */
+
+//javascript:
+document.getElementById('myElement').style.display = "none";
+//jquery:
+$('#myElement').hide();
+
+/*
+ * 添加一个heading
+ */
+ 
+//javascript:
+var newHeading = document.createElement("h1");
+newHeading.innerHTML = "Javascript";
+document.getElementsByTagName('body')[0].appendChild(newHeading);
+
+//jQuery
+$('body').append( $('&lt;h1/&gt;').html("jQuery") );
+
+/*
+ * Add a CSS class to every div that is the child of a link
+ */
+ //javascript
+var links = document.getElementsByTagName('a');
+var link;
+for (i=0;i&lt;links.length;i++) {
+   link =  links[i];
+   for (j=0;j&lt;link.children.length;j++) {
+       if (link.children[j].tagName === "DIV") {
+           var currentClassName = link.children[j].className;
+           var newClassName;
+           if (currentClass === "") {
+               newClassName = "newClass";
+           } else {
+               newClassName = currentClassName + " newClass";
+           }
+           link.children[j].className = newClassName;
+       }
+   }
+}
+
+//jquery
+$('a &gt; div').addClass("newClass");
+
+});
+</pre>
+
+<h2 id="toc_1.2">functions</h2>
+<p>
+有两种定义函数的方式
+</p>
+<pre class="brush: js">
+var myFunction = function(){
+  //do something
+}
+
+//另一种应该是
+function myFunc(){
+}
+</pre>
+<p>
+第一种更灵活...?
+</p>
+
+<p>
+javascript function 是first class objects
+</p>
+<pre>
+  first class object:
+  * a function is an instance of the Object type
+  * a function can have properties and has a link back to its constructor method
+  * you can store the function in a variable
+  * you can pass the function as a parameter to another function
+  * you can return the function from a function
+</pre>
+<p>
+<a href="http://helephant.com/2008/08/19/functions-are-first-class-objects-in-javascript/">more</a> 
+</p>
+
+<h2 id="toc_1.3">objects</h2>
+<p>
+几乎javascript里面所有的东西都是object。
+object就是字典dictionary。我们需要理解object如何与DOM交互。
+</p>
+<pre class="brush: js">
+//1)
+var thingOne = {'key':'value'};
+typeof thingOne;//object
+
+//2)
+var thingTwo = [5,3,23];
+//alert(typeof thingTwo);//object
+
+//3) **this is jQuery!
+var thingThree = $();
+(typeof thingThree);//object
+</pre>
+<p>
+<em>在object前面加个$只是为了说明这是jQuery object</em>
+</p>
+
+<h2 id="toc_1.4">this</h2>
+<p>
+当一个函数在全局上下文调用而不是作为object的一部分时，
+this指代window--一个全局对象。
+</p>
+<pre class="brush: js">
+var x = 5;
+function trickyThis() {
+    var x = 3;
+    alert(this.x);
+}
+
+// If we uncomment the next line, what would the alert say?
+trickyThis();
+</pre>
+<p>
+而当函数是object的一部分时，
+在那个函数内，this则指代那个object。
+</p>
+<pre class="brush: js">
+var myObject = {
+    'name':'objecty',
+    'sayName': function(event) {
+        //alert the name
+        alert(this.name);
+    }
+};
+</pre>
+<hr />
+<p>
+那么我的问题是：
+</p>
+<pre>
+$('#button').click(myObject.sayName);//this指代？
+</pre>
+<p>
+实践证明是button，这和jquery内部实现有关吧。sayName里面
+的this铁定与myObject无关。
+<hr />
+合理使用this可以帮我们捕捉bug,或者直接第一时间避免。
+</p>
+
+<p>
+还可以明确指定某个函数中this指代的东西。
+<strong>jQuery库</strong> 通过这种模式使得一个函数可以作用于多个object。
+<hr />
+<strong>$.proxy</strong>( <em>function</em>, <em>object</em> ) 返回一个绑定了上下文的函数
+</p>
+<pre class="brush: js">
+var o = {'x':6};
+
+var x = 9;
+
+function alertX() {
+    alert(this.x);
+}
+
+var $proxiedAlertX = $.proxy(alertX, o);
+$proxiedAlertX();
+</pre>
+<h1 id="toc_2">参考</h1>
+<p>
+codecademy
+<hr />
+2012年 12月 15日 星期六 23:47:44 CST
+</p>
+
+</body>
+</html>

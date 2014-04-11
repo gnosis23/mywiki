@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>create_database</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<p>
+<a href="../index.html">主页</a> &gt; <a href="index.html">mysql</a> 
+</p>
+<h1 id="toc_1">创建数据库</h1>
+<div class="toc">
+<ul>
+<li><a href="#toc_1">创建数据库</a>
+<ul>
+<li><a href="#toc_1.1">创建数据库和用户</a>
+<li><a href="#toc_1.2">GRANT</a>
+<li><a href="#toc_1.3">REVOKE</a>
+<li><a href="#toc_1.4">创建一个用户</a>
+<li><a href="#toc_1.5">查看数据库</a>
+<li><a href="#toc_1.6">索引</a>
+</ul>
+</ul>
+</div>
+
+<p>
+登录数据库
+</p>
+<pre>
+mysql -h hostname -u username -p
+</pre>
+<ol>
+<li>
+-h: 主机名，本机省略
+
+<li>
+-u: 不指定使用操作系统名词
+
+<li>
+-p: 
+
+</ol>
+
+<h2 id="toc_1.1">创建数据库和用户</h2>
+<pre>
+mysql&gt; create database dbname;
+</pre>
+
+<h2 id="toc_1.2">GRANT</h2>
+<pre>
+GRANT privileges [columns]
+ON item
+TO user_name [INDENTIFIED BY 'passwd']
+[REQUIRE ssl_options]
+[WITH [GRANT OPTION | limit_options]
+</pre>
+<ul>
+<li>
+privileges: 权限名，如select, insert .....
+
+<li>
+columns: 对一列或逗号分开的多列指定权限
+
+<li>
+item: 数据库或表名。常见形式：dbname.*, 
+  全局权限*.*
+
+<li>
+username: 数据库用户名，可在后面包含一个主机名，
+  jack@somewhere.com
+
+<li>
+GRANT OPTION: 被授权的人可以授权
+
+</ul>
+
+<h2 id="toc_1.3">REVOKE</h2>
+<pre>
+REVOKE privileges [( columns )]
+ON item
+FROM user_name
+</pre>
+<p>
+如果有WITH GRANT OPTION
+</p>
+<pre>
+REVOKE ALL PRIVILEGES, GRANT OPTION
+FROM user_name
+</pre>
+
+
+<h2 id="toc_1.4">创建一个用户</h2>
+<p>
+在创建前面需要删除匿名用户
+</p>
+<pre>
+mysql&gt; use mysql
+mysql&gt; delete from user where User='';
+mysql&gt; quit
+
+mysqladmin -u root -p reload
+</pre>
+
+<h2 id="toc_1.5">查看数据库</h2>
+<pre>
+use dbname;
+show tables; // 查看表
+describe tableName;
+</pre>
+
+<h2 id="toc_1.6">索引</h2>
+<p>
+当某些数据需要经常查询，我们需要添加索引来改进性能。
+</p>
+<pre>
+CREATE [UNIQUE | FULLTEXT] INDEX index_name
+ON table_name (index_column_name [(length)] [ASC|DESC], ...);
+</pre>
+<hr />
+
+</body>
+</html>

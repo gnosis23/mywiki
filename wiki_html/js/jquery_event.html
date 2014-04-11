@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>jquery_event</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<p>
+<a href="../index.html">主页</a> &gt; <a href="js.html">Javascript</a>
+</p>
+<h1 id="toc_1">Event</h1>
+
+<div class="toc">
+<ul>
+<li><a href="#toc_1">Event</a>
+<ul>
+<li><a href="#toc_1.1">click</a>
+<li><a href="#toc_1.2">on</a>
+<li><a href="#toc_1.3">多事件</a>
+<li><a href="#toc_1.4">事件目标</a>
+<li><a href="#toc_1.5">mouse,键盘，hover，focus</a>
+<li><a href="#toc_1.6">高级，自定义事件</a>
+<ul>
+<li><a href="#toc_1.6.1">trigger</a>
+<li><a href="#toc_1.6.2">delegate</a>
+</ul>
+</ul>
+</ul>
+</div>
+
+<h2 id="toc_1.1">click</h2>
+<p>
+很简单
+</p>
+
+<h2 id="toc_1.2">on</h2>
+<pre class="brush:js">
+$('document').ready( function(){} );
+
+//等于
+$('document').on('ready', function(){} );
+</pre>
+<hr />
+<p>
+delegate与on的区别见下
+<hr />
+</p>
+<h2 id="toc_1.3">多事件</h2>
+<p>
+传递一个{ eventName: function }对象即可
+</p>
+<pre class="brush:js">
+$('#sample').on({
+  mouseenter: function(e){ alert('enter');},
+  mouseleave: function(e){ alert('leave');}
+});
+</pre>
+
+<h2 id="toc_1.4">事件目标</h2>
+<p>
+事件函数的参数event，通过event.target获取目标
+</p>
+<pre class="brush:js">
+$('button').click(function(e){
+  $target = $(e.target);
+  alert(  $target );
+});
+</pre>
+
+<h2 id="toc_1.5">mouse,键盘，hover，focus</h2>
+<p>
+自己查文档
+</p>
+
+<p>
+.hover( funcIn, funcOut)
+</p>
+
+<p>
+.focus()  &lt;--&gt; .blur()
+</p>
+
+<h2 id="toc_1.6">高级，自定义事件</h2>
+<h3 id="toc_1.6.1">trigger</h3>
+<pre class="brush:js">
+    //自定义事件，trigger触发
+    $('#myElementId').on('las',function(e){
+        $(this).addClass('green');
+    });
+    
+    $('#myElementId').trigger('las');
+
+</pre>
+<h3 id="toc_1.6.2">delegate</h3>
+<p>
+delegate与on的区别是delegate会对document ready之后创建的元素
+也附加handler。
+</p>
+<pre class="brush:js">
+$(document).ready(function(){
+    $('body p').delegate('click', function(){
+        $(this).after('No click me!');
+    });
+    $('body').append('&lt;p&gt;fk me&lt;/p&gt;');
+});
+
+</pre>
+<hr />
+<p>
+2012年 12月 18日 星期二 18:56:49 CST
+</p>
+
+</body>
+</html>

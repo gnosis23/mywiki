@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="../style.css">
+<title>js_web</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<p>
+<a href="../index.html">主页</a> &gt; <a href="js.html">Javascript</a>
+</p>
+<h1 id="toc_1">Javascript on the web</h1>
+<h2 id="toc_1.1">链接到JS文件</h2>
+<pre class="brush: xml">
+  &lt;script type="text/javascript" src="script.js"&gt;&lt;/script&gt;
+</pre>
+
+<h2 id="toc_1.2">HTML Event Attributes</h2>
+<p>
+可以在html中添加类似onclick这样的事件属性。
+</p>
+
+<p>
+其他类似的属性<a href="http://www.w3schools.com/tags/ref_eventattributes.asp">还有</a>。
+</p>
+
+<h2 id="toc_1.3">初认DOM</h2>
+<p>
+在浏览器中html以DOM(Document Object Model)结构存储。
+Javascript可以改变这种结构。
+learn <a href="http://www.w3schools.com/htmldom/default.asp">more</a>。
+</p>
+
+<p>
+使用document.getElementById()来获取对象
+</p>
+<pre class="brush: js">
+document.getElementById('nn').innerHTML = 'a';
+</pre>
+
+
+<h2 id="toc_1.4">form</h2>
+<h3 id="toc_1.4.1">Ex 1</h3>
+<p>
+&lt;form&gt;标签中的name属性用于js提取时使用。
+</p>
+<pre class="brush: html">
+  &lt;form name="myForm"&gt;
+    &lt;input type="text" name="t"&gt;
+    &lt;input type="button" value="Add to List" onclick="processForm()"&gt;
+    &lt;br&gt;
+    &lt;select name="s"&gt;
+      &lt;option value="a1"&gt;a1&lt;/option&gt;
+      &lt;option value="a2" selected&gt;a2&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;br&gt;
+    &lt;input type="radio" name="choice" 
+          value="fahrenheit" checked /&gt;Convert to Fahrenheit &lt;br&gt;
+    &lt;input type="radio" name="choice" 
+          value="celsius"&gt;Convert to Celsius  &lt;br&gt;            
+    &lt;input type="checkbox" name="ck" /&gt;haha      
+  &lt;/form&gt;
+</pre>
+<p>
+一些普通应用
+</p>
+<pre class="brush: js">
+  // &lt;input type="text" name="t"&gt;通过如下形式获取对话框的值
+  var name = document.myForm.t.value;
+  // &lt;select name="s" [selected]&gt;下拉菜单
+  document.myForm.s.value;
+  // &lt;div&gt;向div中插入值
+  document.getElementById(divName).innerHTML += name;
+  // &lt;input type="radio" name="choice" value="x" [checked] /&gt; * n
+  // 通过如下形式获取单选框的选项
+  for(var i = 0; i &lt; document.myForm.choice.length; i++) 
+  {
+    if( document.myForm.choice[i].checked ){
+      document.myForm.choice[i].value;
+    }
+  }
+  // &lt;input type="checkbox" name="ck" /&gt;多选框 
+  // 和单选差不多啊
+  
+  // 使用Number()函数转化int
+  var t = Number(document.myForm.xxx.value);
+</pre>
+<ul>
+<li>
+document.form.name.value这种取值的方式 <strong>没见过啊</strong>...
+
+<li>
+<strong>为什么是innerHTML</strong> 呢
+
+<li>
+具体属性可以参照w3cschool表格。
+
+</ul>
+
+<hr />
+<p>
+2012年 12月 14日 星期五 21:51:58 CST
+</p>
+
+</body>
+</html>
