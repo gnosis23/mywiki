@@ -1,3 +1,8 @@
-我的笔记
+我的博客
 ============
-没有同步的网站太痛苦了。
+
+## JS笔记
+- ["神奇"的javascript之Function](https://github.com/gnosis23/mywiki/issues/9)
+
+## Angular 1.x
+- [Angular等待第三方脚本加载](https://github.com/gnosis23/mywiki/issues/7)
