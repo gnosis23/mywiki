@@ -2,6 +2,7 @@
 ============
 
 ## JS笔记
+- [记录一些遇到的ES6语法](https://github.com/gnosis23/mywiki/issues/12)
 - ["神奇"的javascript之Function](https://github.com/gnosis23/mywiki/issues/9)
 
 ## Angular 1.x
