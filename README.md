@@ -2,6 +2,7 @@
 ============
 
 ## JS笔记
+- [正在学习怎么测试JS代码](https://github.com/gnosis23/mywiki/issues/13)
 - [记录一些遇到的ES6语法](https://github.com/gnosis23/mywiki/issues/12)
 - ["神奇"的javascript之Function](https://github.com/gnosis23/mywiki/issues/9)
 
