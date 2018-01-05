@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Cookie</title>
+  <style>
+    body { background-color: #bcd1e6; font-family: '微软雅黑', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif }
+    .main-container { width: 960px; margin: 0 auto; text-align: center;}
+    input[type=text] { padding: 5px; border-radius: 2px;}
+    button {padding: 5px 10px;}
+  </style>
+</head>
+<body>
+  <section class="main-container">
+    <h1>设置你的 Host Cookie</h1>
+    <div>
+      <input type="text" id="host" placeholder="输入IP地址，如10.0.0.4">
+      <button id="submit">确认变更</button>      
+    </div>
+    <p>当前HOST为<span id="old"></span></p>
+  </section>
+  <script>
+    function setCookie(key, value, domain, path) {
+      document.cookie = 
+        encodeURIComponent(key) + '=' + encodeURIComponent(value) 
+        + ' ;expires=Fri, 31 Dec 9999 23:59:59 GMT'
+        + (domain ? ' ;domain=' + domain : '')
+        + (path ? ' ;path=' + path : '')
+    }
+    function getItem(sKey) {
+      return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
+    }
+    function render() {
+      document.querySelector('#old').innerHTML = getItem('host_id');
+    }
+    document.querySelector('#submit').addEventListener('click', function() {
+      var value = document.querySelector('#host').value || '127.0.0.1';
+      setCookie('host_id', value, '', '/');
+      render();
+    });
+    render();
+  </script>
+</body>
+</html>
